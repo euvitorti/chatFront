@@ -30,7 +30,7 @@ Este repositório contém o front-end de um aplicativo de chat simples, desenvol
 
 3. Conectar ao back-end:
 
-   Certifique-se de que o servidor WebSocket do back-end (desenvolvido com Spring Boot) esteja em execução. As mensagens serão enviadas e recebidas conforme os usuários interagem no chat.
+   Certifique-se de que o [servidor WebSocket do back-end (desenvolvido com Spring Boot)](https://github.com/euvitorti/chatonline) esteja em execução. As mensagens serão enviadas e recebidas conforme os usuários interagem no chat.
 
 ## Exemplo de Uso
 
@@ -45,4 +45,5 @@ Aqui estão algumas imagens das telas do front-end:
    <img src="imgReadme/tela1.png" alt="Tela de entrada no chat" width="500" />
 
 ## Contribuição 🚀
+
 Sinta-se à vontade para abrir issues e enviar pull requests para contribuir com o projeto.
