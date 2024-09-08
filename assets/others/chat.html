@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Chat Online</title>
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
+        integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
+        integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Referência ao arquivo JS externo -->
+    <script src="chat.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mt-4 border-bottom border-3">
+            <div class="col-6">
+                <h1>Websocket Chat</h1>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <h4>Send Message</h4>
+            </div>
+            <form id="send-form" class="col-12 d-flex align-items-end gap-3">
+                <div class="w-100">
+                    <label class="form-label">Message</label>
+                    <input type="text" class="form-control" name="message" id="message" required />
+                </div>
+                <div class="w-100">
+                    <label class="form-label">Image</label>
+                    <input type="file" id="fileInput">
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-warning" id="send" disabled>SEND</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <h4>Messages</h4>
+            </div>
+
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Message</th>
+                            <th>From</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

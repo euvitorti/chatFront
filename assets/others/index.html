@@ -1,0 +1,204 @@
+<!--&lt;!&ndash; <!DOCTYPE html>-->
+<!--<html lang="pt-br" data-bs-theme="dark">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <title>Chat Online</title>-->
+
+<!--    &lt;!&ndash; JS &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"-->
+<!--        integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="-->
+<!--        crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"-->
+<!--        integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="-->
+<!--        crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"-->
+<!--        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="-->
+<!--        crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <div class="row mt-4 border-bottom border-3">-->
+<!--            <div class="col-6">-->
+<!--                <h1>Websocket Test</h1>-->
+<!--            </div>-->
+
+<!--            <div id="login-div" class="col-6">-->
+<!--                <form id="login-form" class="d-flex gap-2">-->
+<!--                    <div class="input-container">-->
+<!--                        <input type="text" placeholder="User Name" id="username">-->
+<!--                    </div>-->
+<!--                    <div class="input-container">-->
+<!--                        <input type="password" placeholder="Password" id="password">-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary btn-sm px-4">Login</button>-->
+<!--                </form>-->
+<!--            </div>-->
+
+<!--            <div id="connect-div" class="col-6 d-flex justify-content-end d-none">-->
+<!--                <div>-->
+<!--                    <button class="btn btn-sm btn-success py-2 px-4" id="connect">-->
+<!--                        CONNECT-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="row mt-3">-->
+<!--            <div class="col-12">-->
+<!--                <h4>Send Message</h4>-->
+<!--            </div>-->
+<!--            <form id="send-form" class="col-12 d-flex align-items-end gap-3">-->
+<!--                <div class="w-100">-->
+<!--                    <label class="form-label">Username</label>-->
+<!--                    <input type="text" class="form-control" name="login" id="login" required />-->
+<!--                </div>-->
+<!--                <div class="w-100">-->
+<!--                    <label class="form-label">Message</label>-->
+<!--                    <input type="text" class="form-control" name="message" id="message" required />-->
+<!--                </div>-->
+<!--                <div class="w-100">-->
+<!--                    <label class="form-label">Image</label>-->
+<!--                    <input type="file" id="fileInput">-->
+<!--                </div>-->
+<!--                <div class="d-grid">-->
+<!--                    <button type="submit" class="btn btn-warning" id="send" disabled>SEND</button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+
+<!--        <div class="row mt-3">-->
+<!--            <div class="col-12">-->
+<!--                <h4>Messages</h4>-->
+<!--            </div>-->
+
+<!--            <div class="col-12">-->
+<!--                <table class="table table-striped">-->
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <th>Message</th>-->
+<!--                            <th>From</th>-->
+<!--                            <th>Image</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody id="tbody">-->
+<!--                        <tr>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+<!--    <script>-->
+
+<!--        function setConnected(connected) {-->
+<!--            $("#connect").text("Connected").attr("disabled", true);-->
+<!--            $("#send").attr("disabled", false);-->
+<!--        }-->
+
+<!--        // Manipulador de envio do formulário de login-->
+<!--        $("#login-form").submit((e) => {-->
+<!--            e.preventDefault();-->
+
+<!--            // Atualiza os valores do usuário e senha-->
+<!--            var username = document.querySelector('#username').value;-->
+<!--            var password = document.querySelector('#password').value;-->
+<!--            var fileInput = document.querySelector('#fileInput').value;-->
+
+<!--            // Cria um objeto com os dados de login-->
+<!--            var data = {-->
+<!--                userName: username,-->
+<!--                password: password,-->
+<!--            };-->
+
+<!--            fetch('http://localhost:8080/auth/login', {-->
+<!--                method: 'POST',-->
+<!--                headers: {-->
+<!--                    'Content-Type': 'application/json'-->
+<!--                },-->
+<!--                body: JSON.stringify(data)-->
+<!--            }).then(response => {-->
+<!--                if (!response.ok) {-->
+<!--                    throw new Error('Login failed.');-->
+<!--                }-->
+<!--                return response.json();-->
+<!--            }).then(data => {-->
+<!--                console.log(data);-->
+<!--                localStorage.setItem('Bearer Token', data.token);-->
+<!--                localStorage.setItem("username", username); // Atualiza o armazenamento do username-->
+<!--                $("#login-div").hide();-->
+<!--                $("#connect-div").removeClass("d-none");-->
+<!--            }).catch(err => {-->
+<!--                alert("Invalid username or password");-->
+<!--            });-->
+<!--        });-->
+
+<!--        // Manipulador de clique para conectar ao WebSocket-->
+<!--        $("#connect").click(() => {-->
+<!--            const socket = new SockJS("/ws");-->
+<!--            stompClient = Stomp.over(socket);-->
+<!--            stompClient.connect({-->
+<!--                Authorization: `Bearer ${localStorage.getItem("Bearer Token")}`-->
+<!--            }, (frame) => {-->
+<!--                console.log(frame);-->
+<!--                setConnected();-->
+
+<!--                stompClient.subscribe("/topic/messages", (message) => {-->
+<!--                    const data = JSON.parse(message.body);-->
+<!--                    let imageTag = '';-->
+
+<!--                    // Verifica se há uma imagem e cria uma tag <img>-->
+<!--                    if (data.image) {-->
+<!--                        imageTag = `<img src="${data.image}" alt="User Image" width="100">`;-->
+<!--                    }-->
+
+<!--                    $("#tbody").append(`<tr><td>${data.message}</td><td>${data.from}</td><td>${imageTag}</td></tr>`);-->
+<!--                });-->
+<!--            }, (error) => {-->
+<!--                console.error('Error during WebSocket connection:', error);-->
+<!--            });-->
+<!--        });-->
+
+<!--        // Manipulador de envio do formulário de mensagens-->
+<!--        $("#send-form").submit((e) => {-->
+<!--            e.preventDefault();-->
+
+<!--            const fileInput = document.querySelector('#fileInput').files[0];-->
+<!--            const reader = new FileReader();-->
+
+<!--            reader.onload = function (event) {-->
+<!--                const base64Image = event.target.result;  // Aqui está a imagem em Base64-->
+
+<!--                // Envia mensagem com a imagem em Base64-->
+<!--                stompClient.send("/app/chat", {}, JSON.stringify({-->
+<!--                    to: $("#login").val(),  // Nome do destinatário-->
+<!--                    message: $("#message").val(),  // Mensagem de texto-->
+<!--                    from: localStorage.getItem("username"),  // Nome do remetente-->
+<!--                    image: base64Image  // Imagem em Base64-->
+<!--                }));-->
+<!--            };-->
+
+<!--            // Se um arquivo for selecionado, ele será convertido em Base64-->
+<!--            if (fileInput) {-->
+<!--                reader.readAsDataURL(fileInput);-->
+<!--            } else {-->
+<!--                // Se não houver imagem, envie apenas a mensagem de texto-->
+<!--                stompClient.send("/app/chat", {}, JSON.stringify({-->
+<!--                    to: $("#login").val(),-->
+<!--                    message: $("#message").val(),-->
+<!--                    from: localStorage.getItem("username")-->
+<!--                }));-->
+<!--            }-->
+<!--        });-->
+
+
+<!--    </script>-->
+<!--</body>-->
+
+<!--</html> &ndash;&gt;-->
