@@ -20,7 +20,7 @@ Este repositório contém o front-end de um aplicativo de chat simples, desenvol
 
    ```
    bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio-front.git
+   git clone https://github.com/euvitorti/chatFront.git
    cd nome-do-repositorio-front
    ```
 
