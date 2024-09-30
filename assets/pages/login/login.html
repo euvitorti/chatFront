@@ -6,29 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="../../style/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
 
   <main class="login-container">
-
     <section class="welcome-message">
       <h2>Welcome Back</h2>
       <p>Please enter your credentials to access your account.</p>
     </section>
 
     <section class="login-form">
-      <form>
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Enter your username" required>
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password" required>
-        <button type="submit">Login</button>
+      <form id="login-form">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
       </form>
+      <p><a href="../signin/signin.html">Cadastre-se</a></p>
     </section>
 
   </main>
 
+  <script src="../../script/login/login.js"></script>
 </body>
 
 </html>
