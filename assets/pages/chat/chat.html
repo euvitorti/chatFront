@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Chat - Versão Aprimorada</title>
+    <title>Chat Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../../style/chat/style.css">
 </head>
 
@@ -15,8 +19,8 @@
                 <h2>Contatos</h2>
                 <button class="exit-button">Sair</button>
             </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Pesquisar contatos...">
+            <div class="search-bar mb-2">
+                <input type="text" class="form-control" placeholder="Pesquisar contatos...">
             </div>
             <ul class="contact-list">
                 <li><span class="status-indicator status-online"></span>Alice</li>
@@ -28,29 +32,23 @@
         </div>
         <div class="chat-area">
             <div class="chat-header">
-                <h2>Chat com Alice</h2>
+                <h2>Chat</h2>
             </div>
-            <div class="messages">
-                <div class="message message-received">
-                    Olá! Como você está?
-                    <span class="message-timestamp">10:30</span>
-                </div>
-                <div class="message message-sent">
-                    Oi Alice! Estou bem, e você?
-                    <span class="message-timestamp">10:31</span>
-                </div>
-                <div class="message message-received">
-                    Estou ótima, obrigada! Que tal nos encontrarmos para um café mais tarde?
-                    <span class="message-timestamp">10:33</span>
-                </div>
+            <div class="messages" id="messages">
+                <!-- Mensagens serão adicionadas aqui -->
             </div>
-            <div class="message-input-container">
-                <button class="file-input" title="Enviar arquivo">&#128206;</button>
-                <input type="text" class="message-input" placeholder="Digite sua mensagem...">
-                <button class="send-button">Enviar</button>
-            </div>
+            <form id="send-form" class="message-input-container">
+                <div class="file-input-container">
+                    <input type="file" id="fileInput" class="file-input" title="Enviar arquivo">
+                    <i class="fas fa-paperclip file-icon" id="attach-file-icon"></i>
+                </div>
+                <input type="text" id="message" class="message-input" placeholder="Digite sua mensagem">
+                <button type="submit" class="send-button" id="send">Enviar</button>
+            </form>
         </div>
     </div>
+
+    <script src="../../script/chat/chat.js"></script>
 </body>
 
 </html>
