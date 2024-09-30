@@ -26,7 +26,7 @@ Este repositório contém o front-end de um aplicativo de chat simples, desenvol
 
 2. Executar o projeto:
 
-   Não é necessário nenhum servidor para rodar o front-end, basta abrir o arquivo index.html no navegador.
+   Não é necessário nenhum servidor para rodar o front-end, basta abrir o arquivo signin.html no navegador.
 
 3. Conectar ao back-end:
 
