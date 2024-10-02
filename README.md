@@ -21,7 +21,7 @@ Este repositório contém o front-end de um aplicativo de chat simples, desenvol
    ```
    bash
    git clone https://github.com/euvitorti/chatFront.git
-   cd nome-do-repositorio-front
+   cd chatFront
    ```
 
 2. Executar o projeto:
