@@ -138,16 +138,19 @@ body {
   padding: 10px;
   border-radius: 8px;
   position: relative;
+  display: inline-block; /* Alinha as mensagens de forma correta */
 }
 
 .message-received {
-  align-self: flex-start;
-  background-color: #3f3f3f;
+  align-self: flex-start; /* Alinha as mensagens recebidas à esquerda */
+  background-color: #3f3f3f; /* Cor de fundo para mensagens recebidas */
 }
 
 .message-sent {
-  align-self: flex-end;
-  background-color: #6b3fa0;
+  align-self: flex-end; /* Alinha as mensagens enviadas à direita */
+  background-color: #6b3fa0; /* Cor de fundo para mensagens enviadas */
+  color: white; /* Texto branco para melhor contraste */
+  text-align: right; /* Alinha o texto à direita */
 }
 
 .message-timestamp {
@@ -195,36 +198,23 @@ body {
 
 .message-input {
   flex-grow: 1;
-  padding: 12px;
-  border: 1px solid #4f4f4f;
+  margin: 0 10px;
+  padding: 10px;
+  border: none;
   border-radius: 4px;
-  background-color: #3f3f3f;
-  color: #ffffff;
-  font-size: 16px;
-  margin-right: 10px;
-  transition: border-color 0.3s ease;
-}
-
-.message-input:focus {
-  border-color: #6b3fa0;
-  outline: none;
 }
 
 .send-button {
-  padding: 12px 24px;
   background-color: #6b3fa0;
   color: white;
   border: none;
+  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.1s ease;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 .send-button:hover {
   background-color: #8650b8;
-}
-
-.send-button:active {
-  transform: scale(0.98);
 }
