@@ -1,11 +1,9 @@
 let stompClient; // Variável para armazenar a conexão com o servidor via WebSocket
 
-// Função para selecionar um elemento do DOM com base no seletor passado
 function select(selector) {
     return document.querySelector(selector);
 }
 
-// Função para exibir uma mensagem de alerta ao usuário
 function showAlert(message) {
     alert(message);
 }
@@ -21,13 +19,13 @@ function createMessageElement(data, username) {
     // Monta o conteúdo da mensagem (imagem, texto, e timestamp)
     messageDiv.innerHTML = `${imageTag} ${data.message || ''} <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>`;
 
-    return messageDiv; // Retorna o elemento de mensagem criado
+    return messageDiv;
 }
 
 // Função para conectar ao WebSocket e inicializar o cliente STOMP
 function connect() {
-    const token = localStorage.getItem('Bearer Token'); // Obtém o token de autenticação armazenado localmente
-    const username = localStorage.getItem('username'); // Obtém o nome de usuário
+    const token = localStorage.getItem('Bearer Token');
+    const username = localStorage.getItem('username');
 
     // Se o token ou o nome de usuário não estiverem presentes, redireciona para a página de login
     if (!token || !username) {
@@ -40,8 +38,7 @@ function connect() {
 
     // Conecta ao servidor STOMP com o token de autenticação
     stompClient.connect({ Authorization: `Bearer ${token}` }, (frame) => {
-        console.log('Connected: ' + frame); // Exibe no console a confirmação de conexão
-        select("#send").disabled = false; // Habilita o botão de envio de mensagens
+        select("#send").disabled = false;
 
         // Inscreve-se no tópico para receber mensagens em tempo real
         stompClient.subscribe('/topic/messages', (message) => {
@@ -55,7 +52,6 @@ function connect() {
         // Envia uma mensagem para adicionar o usuário ao chat
         stompClient.send('/app/chat.addUser', {}, JSON.stringify({ username }));
     }, (error) => {
-        console.error('Connection error: ' + error); // Exibe no console o erro de conexão
         showAlert('Unable to connect. Please try again.'); // Alerta o usuário sobre o erro
     });
 }
